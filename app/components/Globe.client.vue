@@ -37,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="globeContainer"></div>
+  <div ref="globeContainer" class="w-full max-w-2lg overflow-hidden"></div>
 </template>
 
 <style>

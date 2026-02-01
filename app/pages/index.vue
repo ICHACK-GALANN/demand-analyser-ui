@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Chart, registerables } from 'chart.js';
 const body = useTemplateRef<HTMLElement>('body');
 
 const blogs: BlogItem[] = [
@@ -40,6 +41,16 @@ const blogs: BlogItem[] = [
     likes: '85'
   },
 ]
+
+const commodities = [
+  { name: 'Eggs', country: 'Taiwan', delta: 15, score: 2000, historicalScores: [1300, 1400, 1350, 1750, 2000] },
+  { name: 'Chicken', country: 'Brazil', delta: 10, score: 2200, historicalScores: [1500, 1600, 1700, 2000, 2200] },
+  { name: 'Rice', country: 'India', delta: -5, score: 1700, historicalScores: [1200, 1250, 1300, 1600, 1700].reverse() },
+  { name: 'Toilet paper', country: 'South Korea', delta: -8, score: 1500, historicalScores: [1100, 1150, 1200, 1400, 1500].reverse() },
+  { name: 'Milk', country: 'USA', delta: 5, score: 1800, historicalScores: [1300, 1350, 1400, 1700, 1800] },
+  { name: 'Bread', country: 'China', delta: -12, score: 1300, historicalScores: [1000, 1050, 1100, 1200, 1300].reverse() },
+]
+
 </script>
 
 <template>
@@ -86,9 +97,15 @@ const blogs: BlogItem[] = [
 
         <div class="col-span-3 h-full w-full">
           <div class="border border-muted py-4 rounded-xl">
-            <UMarquee>
-              <Commodity name="Microcontrollers" country="Taiwan" :delta="15" :score="2000" class="mx-4" />
+            <UMarquee :overlay="false" :ui="{ root: '[--gap:--spacing(1)]', content: 'w-auto py-1' }">
+              <div class="flex gap-4 px-4">
+                <Commodity v-for="commodity in commodities" :key="commodity.name" v-bind="commodity" />
+              </div>
             </UMarquee>
+          </div>
+
+          <div class="border border-muted rounded-xl mt-4">
+            <Globe />
           </div>
         </div>
       </div>
